@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.all 
+    #appel le modèle Post pour retrourner tous les posts dans la table
+    #le résultat de cet appel est un tableau de posts stocké dans la variable d'instance @posts
   end
 
   # GET /posts/1
@@ -27,10 +29,18 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     respond_to do |format|
+      # L’action create instancie un nouvel objet Post à partir des données fournies par le formulaire, que Rails 
+      # rend disponible dans le hash params. Après avoir sauvé le nouveau post, create retourne le format approprié 
+      # en fonction de la demande (HTML dans notre cas). Elle redirige alors vers l’action show pour le post créé et 
+      # initialise une “notice” (note) indiquant que la création s’est bien passée.
+      # Le message “Post was successfully created.” est stocké par Rails dans le hash flash (souvent appelé simplement 
+      #  le flash) pour conserver les messages d’une action à l’autre, fournissant ainsi des informations utiles sur le statut des requêtes.
+      # Le Flash conserve le message pour l’action suivante, ainsi lors de cette redirection vers l’action show, il peut être affiché que le “Post was successfully created.”
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
+        #Si le post n’a pas été sauvé pour un problème de validation, le contrôleur renvoie à l’action new avec un message d’erreur.
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -40,6 +50,8 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    #respond_to gère à la fois les appels HTML et json (équivalent de XML mais en JavaScript) à cette action.
+    #il est possible de voir l'affichage au format json à l'adresse http://localhost:3000/posts.json
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }

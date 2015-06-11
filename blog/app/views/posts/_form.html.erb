@@ -1,3 +1,12 @@
+<!-- 
+Ce fichier est un partiel, il commence par un "_".
+Cela signifie que l'on pourra l'appeler dans différent endroit et sur différente page de notre code html.
+Cette page reçoit les variables d'instance ici "@post" définies dans le fichier appelant.
+Dans notre cas cette page est appelé par new.html.erb qui est elle même chargé par le controller posts et la méthode "new". La méthode "new" attribut à @post un nouvelle objet Post "@post = Post.new" (une nouvelle ligne dans l'objet Post qui contient la table posts)
+Ce fichier permet de générer un formulaire en html
+Il faut privilégie un formulaire form_for qu'un <form> en html (fonctionnement optimisé de rails car cela lie explicitement le formulaire à une instance d'un modèle).
+Pour insérer un formulaire qui n'est pas lié à un modèle, il faut utiliser un form_tag
+-->
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +21,7 @@
   <% end %>
 
   <div class="field">
+    <!-- indique à rails de lier le champs de saisi text à l'attribut name de la variable d'instance associé à l'objet passé par le controller -->
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
@@ -23,6 +33,11 @@
     <%= f.label :content %><br>
     <%= f.text_area :content %>
   </div>
+
+  <!-- 
+  Le formulaire form_for détermine seul si on effectue une action NewPost ou EditPost.
+  Il initialise les tags action et le nom des boutons correctement
+  -->
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,5 +1,17 @@
 <h1>New Post</h1>
 
+<!-- 
+Création d'une vue partielles "rails partials" 
+Un partials esst un bout de code Ruby et HTML qui peut être réutilisé à plusieurs endroits.
+Le formulaire utilisé pour créer un post et modifier un post est le même
+La bonne pratique est de créer une view "_form.html.erb" (dans notre exemple) et de l'appeler à chaque fois que l'on en a besoin par la commande render ci-dessous
+Quand on va cliquer sur le bouton Create Post du formulaire, le navigateur renvoie des info à la méthode create du controller.
+Rails sait qu’il faut appeler la méthode create car le formulaire est envoyé par une requête HTTP POST ; c’est une des conventions déjà mentionnées.
+-->
 <%= render 'form' %>
 
+<!-- 
+Back =  nom affiché sur le lien
+posts_path = lien vers le chemin posts
+-->
 <%= link_to 'Back', posts_path %>
