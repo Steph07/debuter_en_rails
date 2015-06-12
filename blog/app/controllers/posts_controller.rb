@@ -50,6 +50,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    # Dans l’action update, Rails utilise d’abord le paramètre :id passé par la vue pour retrouver l’enregistrement en cours d’édition. 
+    # L’appel update_attributes utilise ensuite les autres paramètres de la requête pour mettre à jour cet enregistrement. Si tout se passe bien, 
+    # Rails redirige alors vers la vue show du post. En cas de problème, c’est un retour à la vue edit pour corriger les informations.
     #respond_to gère à la fois les appels HTML et json (équivalent de XML mais en JavaScript) à cette action.
     #il est possible de voir l'affichage au format json à l'adresse http://localhost:3000/posts.json
     respond_to do |format|
@@ -66,6 +69,9 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+  # La méthode destroy de l’instance d’un modèle Active Record supprime l’enregistrement 
+  # correspondant de la base. Après cela il ne peut plus être affiché donc Rails redirige 
+  # vers la vue index pour le modèle.
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }

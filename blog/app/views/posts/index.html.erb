@@ -18,7 +18,9 @@
         <td><%= post.name %></td>
         <td><%= post.title %></td>
         <td><%= post.content %></td>
+        <!-- Lorsque vous cliquez sur le lien show d’un post sur la page index, cela vous fait naviguer à une URL telle que http://localhost:3000/posts/1. Rails interprète ceci comme un appel à l’action show pour la ressource, et passe 1 en tant que paramètre :id. Voici l’action show: -->
         <td><%= link_to 'Show', post %></td>
+        <!-- appel de l'action edit dans le controller, après l’avoir trouvée, Rails utilise la vue edit.html.erb pour l’afficher : -->
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

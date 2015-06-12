@@ -1,7 +1,59 @@
-== README
+_______________________________________________________________________________
+--Générer par la console une migration, un model et des tests
+--La commande ci-dessous créer :
+--un fichier de migration dans le dossier db/migrate, 
+--dans le fichier de migration :
+     la création de la table : create_table :comments do |t|
+                                   t.string :commenter
+                                   t.text :body
+                                   t.references :post, index: true, foreign_key: true
+                                        => création d'un index pour lier l'objet sur (post_id)
+                                   t.timestamps null: false
+--un fichier models dans app/models/comment.rb, 
+     avec la création du lien vers l'objet "post" belongs_to :post
+--un fichier test dans test/models/comment_test.rb 
+--un fichier test dans test/fixtures/comments.yml
+-------------------------------------------------------------------------------
+rails generate model Comment commenter:string body:text post:references
+_______________________________________________________________________________
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+
+
+_______________________________________________________________________________
+--Appliquer la migration de la table "comments" généré ci-dessus
+-------------------------------------------------------------------------------
+rake db:migrate
+_______________________________________________________________________________
+
+
+
+_______________________________________________________________________________
+--Aprés avoir modifier les models selon nos exigences et contraintes, il faut
+--à présent générer la route qui va lancer le controller, il faut donc modifier
+--le fichier config/routes.rb
+-------------------------------------------------------------------------------
+resources :posts do
+  resources :comments
+end
+_______________________________________________________________________________
+
+
+
+_______________________________________________________________________________
+--Il faut à présent générer le controller "Comments"
+--4 fichiers sont généré et un dossier
+-- app/controllers/comments_controller.rb – le contrôleur
+-- app/helpers/comments_helper.rb – un fichier helper pour la vue
+-- test/functional/comments_controller_test.rb – tests fonctionnels pour le contrôleur
+-- test/unit/helpers/comments_helper_test.rb – les tests unitaires pour le helper
+-- app/views/comments/ – pour les vues du contrôleur
+-------------------------------------------------------------------------------
+rails generate controller Comments
+_______________________________________________________________________________
+
+
+_______________________________________________________________________________
+-- Il faut ensuite créer la view qui sera appelé par le contrôller
 
 Things you may want to cover:
 
@@ -24,5 +76,4 @@ Things you may want to cover:
 * ...
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+

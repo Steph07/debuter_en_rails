@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :posts
-  # get 'home/index'
+
+  # Cela crée comments en tant que nested resource (ressource imbriquée) dans posts, 
+  # un autre aspect de la relation hiérarchique qui existe entre les posts et les 
+  # comments.
+  resources :posts do
+    resources :comments
+  end
+
+  get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
